@@ -2,15 +2,23 @@ import ListEmployee from './components/ListEmployee';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { Switch, Route,Router } from "react-router-dom";
 
 function App() {
   return (
    <div>
-   <Header/>
+   {/* <Router> */}
+      <Header/>
     <div className="container">
-      <ListEmployee />
-    </div>
-    <Footer/>
+      {/* <Switch> */}
+        {/* <Route exact  path="/" component={ListEmployee}></Route>
+        <Route exact  path="/employees" component={ListEmployee}></Route>
+        <Route exact  path="/" component={ListEmployee}></Route> */}
+        <ListEmployee/>
+      {/* </Switch> */}
+     </div>
+      <Footer/>
+      {/* </Router> */}
     </div>
   );
 }
