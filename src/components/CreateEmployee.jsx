@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import EmployeeService from '../sevices/EmployeeService';
-import history from './History';
+import History from './History';
 
 export default function CreateEmployee() {
     const [credentials, setCredentials] = useState({
@@ -20,7 +20,7 @@ export default function CreateEmployee() {
         console.log('employee =>' + JSON.stringify(employee));
 
         EmployeeService.createEmployee(employee).then(res => {
-            history.push('/employees');
+            History.push('/employees');
         });
         setCredentials({
             firstName: "",
@@ -29,7 +29,7 @@ export default function CreateEmployee() {
         });
     }
     const Cancel = () => {
-        history.push('/employees');
+     
         setCredentials({
             firstName: "",
             lastName: "",
