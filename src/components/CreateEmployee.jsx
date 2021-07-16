@@ -3,8 +3,9 @@ import { useState } from 'react'
 import EmployeeService from '../sevices/EmployeeService';
 import History from './History';
 
-export default function CreateEmployee() {
+export default function CreateEmployee(props) {
     const [credentials, setCredentials] = useState({
+       
         firstName: "",
         lastName: "",
         emailId: ""
@@ -22,6 +23,7 @@ export default function CreateEmployee() {
         EmployeeService.createEmployee(employee).then(res => {
             History.push('/employees');
         });
+        alert("Employee created");
         setCredentials({
             firstName: "",
             lastName: "",
@@ -29,7 +31,7 @@ export default function CreateEmployee() {
         });
     }
     const Cancel = () => {
-     
+      
         setCredentials({
             firstName: "",
             lastName: "",
@@ -63,8 +65,11 @@ export default function CreateEmployee() {
 
                                 <div className="mt-5 mb-3">
                                     <center>
+                                  
                                         <button className="btn btn-success" onClick={saveEmployee}>Save</button>
+                                        
                                         <button className="btn btn-danger" style={{ marginLeft: "10px" }} onClick={Cancel}>Cancel</button>
+                                       
                                     </center>
                                 </div>
                             </form>
