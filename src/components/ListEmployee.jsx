@@ -17,13 +17,13 @@ export default function ListEmployee() {
             <h2 className="text-center px-lg-5 mt-lg-4">Employees List</h2>
             
             <div className="row">
-            <a href="/add-employee">
+            <a href="/add-employee/_add">
               <button className="btn btn-primary">Add Employee</button>
               </a>
             </div>
             
             <div className="row">
-                <table className="table  table-bordered px-lg-5 mt-lg-4">
+                <table className="table table-striped table-bordered px-lg-5 mt-lg-4">
                     <thead>
                         <tr>
                             <th>Employee First Name</th>
@@ -40,8 +40,11 @@ export default function ListEmployee() {
                                     <td>{e.lastName}</td>
                                     <td>{e.emailId}</td>
                                     <td>
-                                    <a href={`/update-employee/${e.id}`}>
-                                        <button className="btn btn-info">Update</button>
+                                    <a href={`/add-employee/${e.id}`}>
+                                        <button className="btn btn-info ml-2 mr-2">Update</button>
+                                        </a>
+                                        <a href={`/add-employee/${e.id}`}>
+                                        <button className="btn btn-danger">Delete</button>
                                         </a>
                                     </td>
                                 </tr>

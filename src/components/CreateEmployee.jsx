@@ -1,5 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import EmployeeService from '../sevices/EmployeeService';
 import History from './History';
 
@@ -10,20 +11,41 @@ export default function CreateEmployee(props) {
         lastName: "",
         emailId: ""
     });
+const[title,setTitle]=useState("");
+
+    let { id } = useParams();
+    useEffect(() => {
+        if (id === "_add"){
+            setTitle("Add Employee");
+            return;
+        }
+        else {
+            setTitle("Update Employee");
+            EmployeeService.getEmployeeById(id).then((res) => {
+                let employee = res.data;
+                setCredentials({ ...employee });
+            });
+        }
+    }, [id]);
 
     const onChangeHandler = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value });
     }
 
-    const saveEmployee = (e) => {
+    const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
         let employee = { ...credentials };
         console.log('employee =>' + JSON.stringify(employee));
-
-        EmployeeService.createEmployee(employee).then(res => {
-            History.push('/employees');
-        });
-        alert("Employee created");
+        if (id === "_add") {
+            EmployeeService.createEmployee(employee).then(res => {
+                History.push('/employees');
+            });
+        }
+        else {
+            EmployeeService.updateEmployee(employee, id).then(res => {
+                History.push('/employees');
+            });
+        }
         setCredentials({
             firstName: "",
             lastName: "",
@@ -31,7 +53,7 @@ export default function CreateEmployee(props) {
         });
     }
     const Cancel = () => {
-      
+        History.push('/employees');
         setCredentials({
             firstName: "",
             lastName: "",
@@ -40,12 +62,13 @@ export default function CreateEmployee(props) {
     }
 
 
+
     return (
         <div>
             <div className="container">
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 mt-lg-5 ">
-                        <h3 className="text-center mt-3">Add Employee</h3>
+                    <h3 className="text-center mt-3">{title}</h3>
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
@@ -65,11 +88,11 @@ export default function CreateEmployee(props) {
 
                                 <div className="mt-5 mb-3">
                                     <center>
-                                  
-                                        <button className="btn btn-success" onClick={saveEmployee}>Save</button>
-                                        
+
+                                        <button className="btn btn-success" onClick={saveOrUpdateEmployee}>Save</button>
+
                                         <button className="btn btn-danger" style={{ marginLeft: "10px" }} onClick={Cancel}>Cancel</button>
-                                       
+
                                     </center>
                                 </div>
                             </form>
