@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState} from 'react';
+import { useParams } from 'react-router-dom';
 import EmployeeService from '../sevices/EmployeeService';
 import History from './History';
 
@@ -11,14 +12,14 @@ const [credentials, setCredentials] = useState({
     lastName: "",
     emailId: ""
 });
+let { id } = useParams()
+useEffect(()=> {
 
-// useEffect(()=> {
-
-//     EmployeeService.getEmployeeById(id).then((res)=>{
-//         let employee=res.data;
-//         setCredentials({...employee});
-//     });
-//  }, []);
+    EmployeeService.getEmployeeById(id).then((res)=>{
+        let employee=res.data;
+        setCredentials({...employee});
+    });
+ }, [id]);
 
 const onChangeHandler = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -38,7 +39,7 @@ const updateEmployee = (e) => {
     });
 }
 const Cancel = () => {
-  
+  History.push('/employees');
     setCredentials({
        
         firstName: "",
