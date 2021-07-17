@@ -11,9 +11,11 @@ export default function CreateEmployee(props) {
         lastName: "",
         emailId: ""
     });
+    
 const[title,setTitle]=useState("");
 
     let { id } = useParams();
+
     useEffect(() => {
         if (id === "_add"){
             setTitle("Add Employee");
